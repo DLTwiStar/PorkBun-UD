@@ -1,0 +1,17 @@
+# porkbun-ud configuration. Install as /etc/porkbun-ud/config.toml
+# API keys do NOT go here; they live in /etc/porkbun-ud/credentials.env
+
+# Defaults for every domain below (each can be overridden per domain).
+ttl = 600      # seconds; Porkbun's minimum is 600
+ipv4 = true    # keep A records updated
+ipv6 = true    # keep AAAA records updated (skipped when there is no public IPv6)
+
+[[domain]]
+name = "example.com"
+# Subdomain part only. "@" is the root (example.com), "*" is the wildcard.
+records = ["@", "www", "*"]
+
+[[domain]]
+name = "example.net"
+records = ["home", "vpn"]
+ipv6 = false
