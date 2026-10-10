@@ -106,3 +106,7 @@ simply left alone.
 ```sh
 python3 -m unittest discover tests
 ```
+
+## License
+
+MIT, see [LICENSE](LICENSE).
