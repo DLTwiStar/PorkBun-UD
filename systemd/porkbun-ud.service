@@ -6,8 +6,8 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/porkbun-ud --config /etc/porkbun-ud/config.toml
-EnvironmentFile=/etc/porkbun-ud/credentials.env
+ExecStart=/usr/local/bin/porkud --config /etc/porkbun-ud/config.toml update
+EnvironmentFile=-/etc/porkbun-ud/credentials.env
 
 DynamicUser=yes
 StateDirectory=porkbun-ud

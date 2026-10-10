@@ -1,17 +1,32 @@
-# porkbun-ud configuration. Install as /etc/porkbun-ud/config.toml
-# API keys do NOT go here; they live in /etc/porkbun-ud/credentials.env
+# Example of /etc/porkbun-ud/config.toml. The porkud command writes this file
+# for you (porkud add / remove / set), so you rarely need to edit it by hand.
+# API keys do NOT go here; set them with: porkud auth
 
-# Defaults for every domain below (each can be overridden per domain).
+# Defaults for every job below (each can be overridden per job).
 ttl = 600      # seconds; Porkbun's minimum is 600
-ipv4 = true    # keep A records updated
-ipv6 = true    # keep AAAA records updated (skipped when there is no public IPv6)
+ipv4 = true    # auto-detect the public IPv4 address (A records)
+ipv6 = true    # auto-detect the public IPv6 address (AAAA records)
 
-[[domain]]
-name = "example.com"
-# Subdomain part only. "@" is the root (example.com), "*" is the wildcard.
-records = ["@", "www", "*"]
+# A job is a group of names that point at the same place.
+[[job]]
+name = "default"
+ip = ["auto"]  # follow the detected WAN address
 
-[[domain]]
-name = "example.net"
-records = ["home", "vpn"]
-ipv6 = false
+  [[job.domain]]
+  name = "example.com"
+  # Subdomain part only. "@" is the root (example.com), "*" is the wildcard.
+  records = ["@", "www", "*"]
+
+  [[job.domain]]
+  name = "example.net"
+  records = ["home"]
+
+[[job]]
+name = "JOB02"
+# Fixed addresses, one record each. "auto" can be mixed in as well.
+ip = ["203.0.113.7", "203.0.113.8"]
+ttl = 3600
+
+  [[job.domain]]
+  name = "example.com"
+  records = ["nas"]
